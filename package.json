@@ -1,0 +1,27 @@
+{
+  "name": "youtube-watch-later-cleaner",
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "2.0.13",
+    "@chakra-ui/react": "2.4.2",
+    "@chakra-ui/theme-tools": "2.0.14",
+    "@emotion/react": "11.10.5",
+    "@emotion/styled": "11.10.5",
+    "@tanstack/react-query": "4.18.0",
+    "framer-motion": "7.6.15",
+    "next": "13.0.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "typescript": "4.9.3"
+  }
+}
