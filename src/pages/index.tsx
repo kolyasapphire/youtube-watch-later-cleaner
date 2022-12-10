@@ -52,6 +52,7 @@ const Index = () => {
         name: channelName,
         link: channelLink,
         videos: [],
+        totalVideosTime: 0,
       }
     }
 
@@ -64,13 +65,15 @@ const Index = () => {
       length,
       lengthSeconds,
     })
+
+    channels[channelName].totalVideosTime += parseInt(lengthSeconds)
   }
 
   // Whitelist
   ;[].forEach((x) => delete channels[x])
 
   const withSortedChannels = Object.values(channels).sort(
-    (a, b) => b.videos.length - a.videos.length
+    (a, b) => b.totalVideosTime - a.totalVideosTime
   )
 
   const withSortedVideos = withSortedChannels.map((x) => ({

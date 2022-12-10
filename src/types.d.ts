@@ -3,6 +3,8 @@ export type ChannelType = {
   name: string
   link: string
   videos: VideoType[]
+
+  totalVideosTime: number
 }
 
 export type VideoType = {

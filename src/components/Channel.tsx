@@ -9,13 +9,18 @@ import {
 } from '@chakra-ui/react'
 
 import Video from './Video'
-import { VideoType } from '../types'
+import { ChannelType, VideoType } from '../types'
 
-const Channel = ({ data }) => {
-  const [vids, setVids] = useState(data.videos)
+const Channel = ({ data: channel }: { data: ChannelType }) => {
+  const [vids, setVids] = useState(channel.videos)
 
   const deleteVidVisually = (id: string) =>
     setVids(vids.filter((x: { id: string }) => x.id !== id))
+
+  const totalTime =
+    channel.totalVideosTime > 60 * 60
+      ? Math.round(channel.totalVideosTime / 60 / 60) + ' hours'
+      : Math.round(channel.totalVideosTime / 60) + ' mins'
 
   return (
     <VStack>
@@ -23,7 +28,7 @@ const Channel = ({ data }) => {
         <AccordionItem>
           <AccordionButton>
             <Heading size="lg">
-              {data.name} - {vids.length}
+              {channel.name}: {vids.length} vids, {totalTime}
             </Heading>
             <AccordionIcon />
           </AccordionButton>
