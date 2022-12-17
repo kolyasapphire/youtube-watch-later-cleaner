@@ -13,7 +13,7 @@
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@tanstack/react-query": "4.19.1",
-    "framer-motion": "7.7.2",
+    "framer-motion": "7.8.0",
     "next": "13.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0"
