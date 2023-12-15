@@ -17,10 +17,10 @@ const Video = ({ data, deleteVidVisually }) => {
   const [hash] = useLocalStorage('hash', '')
   const secrets = { key, cookie, body, hash }
 
-  const { mutate } = useDelete(secrets, data.setVideoId)
+  const { mutateAsync } = useDelete(secrets, data.setVideoId)
 
-  const remove = () => {
-    mutate()
+  const remove = async () => {
+    await mutateAsync()
     deleteVidVisually(data.id)
   }
 
