@@ -14,6 +14,7 @@ import { ChannelType, VideoType } from '../types'
 const Channel = ({ data: channel }: { data: ChannelType }) => {
   const [vids, setVids] = useState(channel.videos)
 
+  // TODO: Delete the whole channel if last video
   const deleteVidVisually = (id: string) =>
     setVids(vids.filter((x: { id: string }) => x.id !== id))
 
