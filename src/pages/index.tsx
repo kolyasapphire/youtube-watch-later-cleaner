@@ -6,7 +6,7 @@ import { useLocalStorage } from 'hooks'
 import Channel from 'components/Channel'
 import { YT } from '../constants'
 
-import type { ChannelType } from '../types'
+import type { ChannelType, VideoType } from '../types'
 
 const Index = () => {
   const [key] = useLocalStorage('key', '')
@@ -92,7 +92,7 @@ const Index = () => {
       }
       return acc
     },
-    { singles: [], not: [] }
+    { singles: [] as VideoType[], not: [] as ChannelType[] }
   )
 
   const uniqueChannelsAmount = withSingles.not.length + withSingles.singles.length
@@ -102,7 +102,7 @@ const Index = () => {
 
   const final = [
     ...withSingles.not,
-    { id: 'singles', name: 'Singles', videos: withSingles.singles, totalVideosTime: singlesTime },
+    { id: 'singles', name: 'Singles', videos: withSingles.singles, totalVideosTime: singlesTime } as ChannelType,
   ]
 
   const totalVideos = final.reduce((acc, item) => acc + item.videos.length, 0)
