@@ -16,7 +16,6 @@ const baseHeaders = {
 }
 
 type Secrets = {
-  key: string
   cookie: string
   body: string
   hash: string
@@ -47,10 +46,10 @@ const infiniteFetcher = async (secrets: Secrets) => {
 
     const newData = !continuation
       ? rawData.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer
-          .content.sectionListRenderer.contents[0].itemSectionRenderer
-          .contents[0].playlistVideoListRenderer.contents
+        .content.sectionListRenderer.contents[0].itemSectionRenderer
+        .contents[0].playlistVideoListRenderer.contents
       : rawData.onResponseReceivedActions[0].appendContinuationItemsAction
-          .continuationItems
+        .continuationItems
 
     data = [...data, ...newData]
 
@@ -76,7 +75,7 @@ const dataFetch = async (secrets: Secrets, continuation: string | null) => {
   }
 
   const body = {
-    url: `${YT}/youtubei/v1/browse?key=${secrets.key}&prettyPrint=false`,
+    url: `${YT}/youtubei/v1/browse?prettyPrint=false`,
     options: {
       method: 'POST',
       body: proxyBody,
@@ -97,7 +96,7 @@ const deleteFetch = async (secrets: Secrets, setVideoId: string) => {
   proxyBody.playlistId = 'WL'
 
   const body = {
-    url: `${YT}/youtubei/v1/browse/edit_playlist?key=${secrets.key}&prettyPrint=false`,
+    url: `${YT}/youtubei/v1/browse/edit_playlist?prettyPrint=false`,
     options: {
       method: 'POST',
       body: proxyBody,

@@ -11,11 +11,10 @@ import { useDelete } from 'fetchers'
 import { useLocalStorage } from 'hooks'
 
 const Video = ({ data, deleteVidVisually }) => {
-  const [key] = useLocalStorage('key', '')
   const [cookie] = useLocalStorage('cookie', '')
   const [body] = useLocalStorage('body', '')
   const [hash] = useLocalStorage('hash', '')
-  const secrets = { key, cookie, body, hash }
+  const secrets = { cookie, body, hash }
 
   const { mutateAsync } = useDelete(secrets, data.setVideoId)
 
