@@ -95,9 +95,12 @@ const Index = () => {
     { singles: [], not: [] }
   )
 
+  const singlesTime = withSingles.singles.reduce((acc, item) => acc + parseInt(item.lengthSeconds), 0)
+
+
   const final = [
     ...withSingles.not,
-    { id: 'singles', name: 'Singles', videos: withSingles.singles },
+    { id: 'singles', name: 'Singles', videos: withSingles.singles, totalVideosTime: singlesTime },
   ]
 
   return (
