@@ -37,7 +37,7 @@ const Index = () => {
       </VStack>
       <VStack>
         <Heading size="md">SAPISIDHASH</Heading>
-        <Text>Authorization header.</Text>
+        <Text>Inside the authorization header.</Text>
         <Textarea value={hash} onChange={(x) => setHash(x.target.value)} />
       </VStack>
       <Button onClick={() => save()}>Save</Button>
