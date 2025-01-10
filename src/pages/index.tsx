@@ -1,4 +1,4 @@
-import { Text, Button, VStack } from '@chakra-ui/react'
+import { Text, Button, VStack, Box } from '@chakra-ui/react'
 
 import { useContent } from 'fetchers'
 import { useLocalStorage } from 'hooks'
@@ -95,6 +95,8 @@ const Index = () => {
     { singles: [], not: [] }
   )
 
+  const uniqueChannelsAmount = withSingles.not.length + withSingles.singles.length
+
   const singlesTime = withSingles.singles.reduce((acc, item) => acc + parseInt(item.lengthSeconds), 0)
 
 
@@ -103,8 +105,18 @@ const Index = () => {
     { id: 'singles', name: 'Singles', videos: withSingles.singles, totalVideosTime: singlesTime },
   ]
 
+  const totalVideos = final.reduce((acc, item) => acc + item.videos.length, 0)
+  const totalTime = final.reduce((acc, item) => acc + item.totalVideosTime, 0)
+  const humanTotalTime = totalTime > 60 * 60
+    ? Math.round(totalTime / 60 / 60) + ' hours'
+    : Math.round(totalTime / 60) + ' mins'
+
   return (
     <VStack spacing={10}>
+      <Box>
+        {uniqueChannelsAmount} channels, {totalVideos} videos, {humanTotalTime}
+      </Box>
+
       {final.map((x) => (
         <Channel key={x.id} data={x} />
       ))}
