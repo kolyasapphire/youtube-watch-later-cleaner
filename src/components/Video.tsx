@@ -7,7 +7,11 @@ import {
   Heading,
   Link,
   Text,
+  Box
 } from '@chakra-ui/react'
+
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+
 import { useDelete } from 'fetchers'
 import { useLocalStorage } from 'hooks'
 
@@ -33,7 +37,9 @@ const Video = ({ data, deleteVidVisually }) => {
 
   return (
     <HStack spacing={10}>
-      <Image src={data.thumbnails[data.thumbnails.length - 1].url} />
+      <Box h={169} w={300}>
+        <LiteYouTubeEmbed id={data.id} title={data.title} />
+      </Box>
       <VStack>
         <Heading size="sm" w="400px" textAlign="center">
           {data.title}

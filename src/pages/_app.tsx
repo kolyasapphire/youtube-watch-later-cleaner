@@ -6,6 +6,8 @@ import { AppProps } from 'next/app'
 
 import Layout from 'components/Layout'
 
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
+
 const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {
