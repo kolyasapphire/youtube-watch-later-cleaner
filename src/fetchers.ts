@@ -108,7 +108,11 @@ const deleteFetch = async (secrets: Secrets, setVideoId: string) => {
     },
   }
 
-  return await fetchBackend(body)
+  const res = await fetchBackend(body)
+
+  if (res.status !== 'STATUS_SUCCEEDED') throw new Error('Failed to delete video')
+
+  return res
 }
 
 export const useContent = (secrets: Secrets) =>

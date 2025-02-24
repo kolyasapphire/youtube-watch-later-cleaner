@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   HStack,
   VStack,
@@ -16,11 +17,18 @@ const Video = ({ data, deleteVidVisually }) => {
   const [hash] = useLocalStorage('hash', '')
   const secrets = { cookie, body, hash }
 
+  const [isFailed, setIsFailed] = useState(false)
+
   const { mutateAsync } = useDelete(secrets, data.setVideoId)
 
   const remove = async () => {
-    await mutateAsync()
-    deleteVidVisually(data.id)
+    try {
+      await mutateAsync()
+      deleteVidVisually(data.id)
+    } catch (error) {
+      console.error(error)
+      setIsFailed(true)
+    }
   }
 
   return (
@@ -36,7 +44,7 @@ const Video = ({ data, deleteVidVisually }) => {
             <Button>YT</Button>
           </Link>
           <Button color="red" onClick={() => remove()}>
-            Delete
+            {!isFailed ? 'Delete' : 'Failed to Delete'}
           </Button>
         </HStack>
       </VStack>
