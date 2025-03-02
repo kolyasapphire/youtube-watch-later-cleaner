@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import OpenAI from 'openai';
 
 import { YT } from './constants'
 
@@ -19,6 +20,7 @@ type Secrets = {
   cookie: string
   body: string
   hash: string
+  openaiKey: string
 }
 
 type CustomBody = {
@@ -115,8 +117,41 @@ const deleteFetch = async (secrets: Secrets, setVideoId: string) => {
   return res
 }
 
+const descriptionFetch = async (secrets: Secrets, videoUrl: string) => {
+  const transcriptRes = await fetch("/api/transcript", {
+    body: JSON.stringify({ url: videoUrl }),
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+
+  if (!transcriptRes.ok) throw new Error('Failed at transcript')
+
+  const transcript = await transcriptRes.json() as string[]
+
+  const client = new OpenAI({
+    apiKey: secrets.openaiKey,
+    dangerouslyAllowBrowser: true,
+    maxRetries: 0
+  });
+
+  try {
+    const chatCompletion = await client.chat.completions.create({
+      messages: [{ role: 'user', content: `Detailed summary of this video:\n\n${transcript.join('\n')}` }],
+      model: 'gpt-4o'
+    });
+    return chatCompletion.choices[0].message.content
+  } catch (error) {
+    throw new Error('Failed at ChatGPT')
+  }
+}
+
 export const useContent = (secrets: Secrets) =>
   useMutation(() => infiniteFetcher(secrets))
 
 export const useDelete = (secrets: Secrets, id: string) =>
   useMutation(() => deleteFetch(secrets, id))
+
+export const useDescription = (secrets: Secrets, url: string) =>
+  useMutation(() => descriptionFetch(secrets, url), { onError: () => { } })

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import {
   HStack,
   VStack,
@@ -12,18 +12,21 @@ import {
 
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
-import { useDelete } from 'fetchers'
+import { useDelete, useDescription } from 'fetchers'
 import { useLocalStorage } from 'hooks'
 
 const Video = ({ data, deleteVidVisually }) => {
   const [cookie] = useLocalStorage('cookie', '')
   const [body] = useLocalStorage('body', '')
   const [hash] = useLocalStorage('hash', '')
-  const secrets = { cookie, body, hash }
+  const [openaiKey] = useLocalStorage('openaiKey', '')
+  const secrets = { cookie, body, hash, openaiKey }
 
   const [isFailed, setIsFailed] = useState(false)
 
   const { mutateAsync } = useDelete(secrets, data.setVideoId)
+
+  const { mutate: mutateDescription, data: descriptionData, isError, isLoading } = useDescription(secrets, data.link)
 
   const remove = async () => {
     try {
@@ -45,6 +48,13 @@ const Video = ({ data, deleteVidVisually }) => {
           {data.title}
         </Heading>
         <Text>{data.length}</Text>
+        {!descriptionData && (<Button color={isError ? 'red' : null} onClick={() => mutateDescription()}>{isLoading ? 'Loading...' : isError ? 'Error' : 'Summary'}</Button>)}
+        {descriptionData && (<Box maxH={200} maxW={500} overflowY='scroll'>{descriptionData.split("\n").map((line, index) => (
+          <Fragment key={index}>
+            {line}
+            <br />
+          </Fragment>
+        ))}</Box>)}
         <HStack>
           <Link isExternal href={data.link}>
             <Button>YT</Button>

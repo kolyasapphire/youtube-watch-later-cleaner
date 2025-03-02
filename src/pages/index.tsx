@@ -14,7 +14,9 @@ const Index = () => {
   const [body] = useLocalStorage('body', '')
   const [hash] = useLocalStorage('hash', '')
   const [pageId] = useLocalStorage('pageId', '')
-  const secrets = { key, cookie, body, hash, pageId }
+  const [openaiKey] = useLocalStorage('openaiKey', '')
+
+  const secrets = { key, cookie, body, hash, pageId, openaiKey }
 
   const Content = useContent(secrets)
 
