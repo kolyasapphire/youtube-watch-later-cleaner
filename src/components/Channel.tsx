@@ -16,7 +16,7 @@ const Channel = ({ data: channel }: { data: ChannelType }) => {
 
   // TODO: Delete the whole channel if last video
   const deleteVidVisually = (id: string) =>
-    setVids(vids.filter((x: { id: string }) => x.id !== id))
+    setVids((state) => state.filter((x: { id: string }) => x.id !== id))
 
   const totalTime =
     channel.totalVideosTime > 60 * 60
