@@ -143,7 +143,7 @@ const descriptionFetch = async (secrets: Secrets, videoUrl: string) => {
     });
     return chatCompletion.choices[0].message.content
   } catch (error) {
-    throw new Error('Failed at ChatGPT')
+    throw new Error('Failed at ChatGPT: ' + error.code);
   }
 }
 

@@ -26,7 +26,7 @@ const Video = ({ data, deleteVidVisually }) => {
 
   const { mutateAsync } = useDelete(secrets, data.setVideoId)
 
-  const { mutate: mutateDescription, data: descriptionData, isError, isLoading } = useDescription(secrets, data.link)
+  const { mutate: mutateDescription, data: descriptionData, error, isLoading } = useDescription(secrets, data.link)
 
   const remove = async () => {
     try {
@@ -48,7 +48,7 @@ const Video = ({ data, deleteVidVisually }) => {
           {data.title}
         </Heading>
         <Text>{data.length}</Text>
-        {!descriptionData && (<Button color={isError ? 'red' : null} onClick={() => mutateDescription()}>{isLoading ? 'Loading...' : isError ? 'Error' : 'Summary'}</Button>)}
+        {!descriptionData && (<Button color={error ? 'red' : null} onClick={() => mutateDescription()}>{isLoading ? 'Loading...' : error ? (error as Error).message : 'Summary'}</Button>)}
         {descriptionData && (<Box maxH={200} maxW={500} overflowY='scroll'>{descriptionData.split("\n").map((line, index) => (
           <Fragment key={index}>
             {line}
