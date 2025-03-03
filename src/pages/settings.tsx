@@ -26,11 +26,6 @@ const Index = () => {
   return (
     <VStack spacing={3}>
       <VStack>
-        <Heading size="md">Cookie</Heading>
-        <Text>The whole thing.</Text>
-        <Textarea value={cookie} onChange={(x) => setCookie(x.target.value)} />
-      </VStack>
-      <VStack>
         <Heading size="md">Body</Heading>
         <Text>
           Whole body of the request to
@@ -43,6 +38,11 @@ const Index = () => {
         <Heading size="md">SAPISIDHASH</Heading>
         <Text>Inside the authorization header.</Text>
         <Textarea value={hash} onChange={(x) => setHash(x.target.value)} />
+      </VStack>
+      <VStack>
+        <Heading size="md">Cookie</Heading>
+        <Text>The whole thing.</Text>
+        <Textarea value={cookie} onChange={(x) => setCookie(x.target.value)} />
       </VStack>
       <VStack>
         <Heading size="md">OpenAI Key</Heading>
