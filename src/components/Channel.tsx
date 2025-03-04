@@ -6,6 +6,8 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  Button,
+  Link
 } from '@chakra-ui/react'
 
 import Video from './Video'
@@ -35,6 +37,7 @@ const Channel = ({ data: channel }: { data: ChannelType }) => {
           </AccordionButton>
           <AccordionPanel>
             <VStack spacing={5}>
+              <Link isExternal href={channel.link}><Button>YT</Button></Link>
               {vids.map((x: VideoType) => (
                 <Video
                   key={x.id}
