@@ -48,7 +48,6 @@ const Video = ({ data, deleteVidVisually }) => {
           {data.title}
         </Heading>
         <Text>{data.length}</Text>
-        {!descriptionData && (<Button color={error ? 'red' : null} onClick={() => mutateDescription()}>{isLoading ? 'Loading...' : error ? (error as Error).message : 'Summary'}</Button>)}
         {descriptionData && (<Box maxH={200} maxW={500} overflowY='scroll'>{descriptionData.split("\n").map((line, index) => (
           <Fragment key={index}>
             {line}
@@ -59,6 +58,7 @@ const Video = ({ data, deleteVidVisually }) => {
           <Link isExternal href={data.link}>
             <Button>YT</Button>
           </Link>
+          {!descriptionData && (<Button color={error ? 'red' : null} onClick={() => mutateDescription()}>{isLoading ? 'Loading...' : error ? (error as Error).message : 'Summary'}</Button>)}
           <Button color="red" onClick={() => remove()}>
             {!isFailed ? 'Delete' : 'Failed to Delete'}
           </Button>
